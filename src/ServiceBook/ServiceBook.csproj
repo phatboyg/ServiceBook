@@ -33,15 +33,37 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Configuration\Builders\ContainerBuilder.cs" />
+    <Compile Include="Configuration\Builders\ContainerBuilderImpl.cs" />
+    <Compile Include="Configuration\ConfiguratorExtensions.cs" />
+    <Compile Include="Configuration\ConfigureResult.cs" />
+    <Compile Include="Configuration\Configurators\ContainerConfigureResult.cs" />
+    <Compile Include="Configuration\Configurators\Configurator.cs" />
+    <Compile Include="Configuration\Configurators\ValidateConfigurationResult.cs" />
+    <Compile Include="Configuration\Configurators\ValidateConfigurationDisposition.cs" />
+    <Compile Include="Configuration\Configurators\ValidateConfigurationResultImpl.cs" />
+    <Compile Include="Configuration\ContainerConfigurator.cs" />
+    <Compile Include="Configuration\ContainerConfigurators\ContainerBuilderFactory.cs" />
+    <Compile Include="Configuration\ContainerConfigurators\ContainerConfiguratorImpl.cs" />
+    <Compile Include="Configuration\ValidationResultExtensions.cs" />
+    <Compile Include="Container.cs" />
+    <Compile Include="CurryFactory.cs" />
+    <Compile Include="Exceptions\ContainerConfigurationException.cs" />
+    <Compile Include="Exceptions\ServiceBookException.cs" />
+    <Compile Include="Factory.cs" />
+    <Compile Include="FactoryImpl.cs" />
+    <Compile Include="Internals\**\*.cs" />
+    <Compile Include="ReleaseHandler.cs" />
+    <Compile Include="ServiceBookContainer.cs" />
+    <Compile Include="ServiceBookFactory.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="NoArgumentFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

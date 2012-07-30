@@ -5,7 +5,8 @@
     using Registrations;
 
     public class ServiceBookContainer :
-        Container
+        Container,
+        RegistrationCatalog
     {
         readonly RegistrationConvention _registrationConvention;
         readonly Cache<Type, Registration> _types = new ConcurrentCache<Type, Registration>(value => value.Type);
@@ -23,7 +24,7 @@
         Registration GetMissingTypeRegistration(Type type)
         {
             Registration result = null;
-            foreach (Registration typeRegistration in _registrationConvention.GetTypeRegistrations(type))
+            foreach (Registration typeRegistration in _registrationConvention.GetTypeRegistrations(this, type))
             {
                 if (typeRegistration.Type == type)
                     result = typeRegistration;
@@ -35,6 +36,11 @@
                 throw new ServiceBookException("Unable to find type");
 
             return result;
+        }
+
+        public Registration GetRegistration(Type type)
+        {
+            return _types.Get(type, GetMissingTypeRegistration);
         }
     }
 }

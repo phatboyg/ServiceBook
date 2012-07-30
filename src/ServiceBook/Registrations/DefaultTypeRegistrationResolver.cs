@@ -8,8 +8,7 @@ namespace ServiceBook.Registrations
     using Internals.Extensions;
 
 
-    public class DefaultTypeRegistrationResolver :
-        TypeRegistrationResolver
+    public class DefaultTypeRegistrationResolver
     {
         public IEnumerable<Registration> Resolve(Type type)
         {

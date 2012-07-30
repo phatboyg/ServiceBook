@@ -1,11 +1,11 @@
 namespace ServiceBook.Tests.Benchmarks
 {
-    public class ContainerObjectCreation :
+    public class ServiceBookContainerObjectCreation :
         ObjectCreation
     {
         readonly ServiceBook.Container _container;
 
-        public ContainerObjectCreation()
+        public ServiceBookContainerObjectCreation()
         {
             _container = ContainerFactory.New(x => { });
         }

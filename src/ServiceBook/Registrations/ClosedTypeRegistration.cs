@@ -12,6 +12,11 @@ namespace ServiceBook.Registrations
             _factory = factory;
         }
 
+        public Factory<T> Factory
+        {
+            get { return _factory; }
+        }
+
         public T Get()
         {
             return _factory.Get();

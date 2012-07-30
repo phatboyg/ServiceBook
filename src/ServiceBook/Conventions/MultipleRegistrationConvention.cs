@@ -20,11 +20,11 @@ namespace ServiceBook.Conventions
             _conventions = conventions;
         }
 
-        IEnumerable<Registration> RegistrationConvention.GetTypeRegistrations(Type type)
+        IEnumerable<Registration> RegistrationConvention.GetTypeRegistrations(RegistrationCatalog catalog, Type type)
         {
             for (int i = 0; i < _conventions.Length; i++)
             {
-                Registration[] registrations = _conventions[i].GetTypeRegistrations(type).ToArray();
+                Registration[] registrations = _conventions[i].GetTypeRegistrations(catalog, type).ToArray();
                 if (registrations.Length > 0)
                     return registrations;
             }

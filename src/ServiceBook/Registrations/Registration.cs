@@ -10,6 +10,8 @@
     public interface Registration<out T> :
         Registration
     {
+        Factory<T> Factory { get; }
+
         T Get();
     }
 }

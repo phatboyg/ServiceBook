@@ -10,13 +10,17 @@ namespace ServiceBook.Conventions
     public class ConcreteTypeRegistrationConvention :
         RegistrationConvention
     {
-        public IEnumerable<Registration> GetTypeRegistrations(Type type)
+        public IEnumerable<Registration> GetTypeRegistrations(RegistrationCatalog catalog, Type type)
         {
             if (type.IsConcreteType())
             {
                 Registration[] defaultConstructor = GetDefaultConstructor(type).ToArray();
                 if (defaultConstructor.Any())
                     return defaultConstructor;
+
+                Registration[] greediestConstructor = GetGreediestConstructor(catalog, type).ToArray();
+                if (greediestConstructor.Any())
+                    return greediestConstructor;
             }
 
             return Enumerable.Empty<Registration>();
@@ -31,6 +35,40 @@ namespace ServiceBook.Conventions
 
                 var factory = (RegistrationFactory)Activator.CreateInstance(registrationType, constructorInfo);
 
+                yield return factory.Get();
+            }
+        }
+
+        IEnumerable<Registration> GetGreediestConstructor(RegistrationCatalog catalog, Type type)
+        {
+            IOrderedEnumerable<ConstructorInfo> candidates = type.GetConstructors()
+                .OrderByDescending(x => x.GetParameters().Length);
+
+            foreach (ConstructorInfo candidate in candidates)
+            {
+                Type[] dependencies = candidate.GetParameters().Select(x => x.ParameterType).ToArray();
+
+                Registration[] registrations =
+                    GetConstructorRegistrations(catalog, type, candidate, dependencies).ToArray();
+
+                if (registrations.Any())
+                    return registrations;
+            }
+
+            return Enumerable.Empty<Registration>();
+        }
+
+        IEnumerable<Registration> GetConstructorRegistrations(RegistrationCatalog catalog, Type type,
+            ConstructorInfo constructorInfo, Type[] dependencies)
+        {
+            ParameterInfo[] parameters = constructorInfo.GetParameters();
+
+            Registration[] arguments = dependencies
+                .Select((x, index) => catalog.GetRegistration(parameters[index].ParameterType)).ToArray();
+
+            if (parameters.Length == arguments.Length)
+            {
+                RegistrationFactory factory = ConstructorRegistrationFactory.Create(type, constructorInfo, arguments);
                 yield return factory.Get();
             }
         }

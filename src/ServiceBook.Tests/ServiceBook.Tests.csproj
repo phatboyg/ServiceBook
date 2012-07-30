@@ -46,13 +46,15 @@
   <ItemGroup>
     <Compile Include="Benchmarks\ComponentFactory.cs" />
     <Compile Include="Benchmarks\ComponentFactoryObjectCreation.cs" />
-    <Compile Include="Benchmarks\ContainerObjectCreation.cs" />
+    <Compile Include="Benchmarks\ServiceBookContainerObjectCreation.cs" />
     <Compile Include="Benchmarks\Factory.cs" />
     <Compile Include="Benchmarks\NewObjectCreation.cs" />
     <Compile Include="Benchmarks\ObjectCreation.cs" />
     <Compile Include="Benchmarks\ObjectCreationBenchmark.cs" />
+    <Compile Include="Benchmarks\ServiceBookFactoryObjectCreation.cs" />
     <Compile Include="Benchmarks\StructureMapObjectCreation.cs" />
     <Compile Include="Benchmarks\TypeExtensions.cs" />
+    <Compile Include="Configuration\Dependency_Specs.cs" />
     <Compile Include="Configuration\Empty_Specs.cs" />
     <Compile Include="Configuration\NoDependency_Specs.cs" />
     <Compile Include="Configuration\Singleton_Specs.cs" />

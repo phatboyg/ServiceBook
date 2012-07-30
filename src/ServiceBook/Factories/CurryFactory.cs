@@ -1,4 +1,4 @@
-namespace ServiceBook
+namespace ServiceBook.Factories
 {
     public class CurryFactory<T, T1> :
         Factory<T>

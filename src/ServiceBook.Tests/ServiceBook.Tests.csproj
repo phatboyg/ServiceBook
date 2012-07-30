@@ -31,16 +31,35 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Benchmarque">
+      <HintPath>..\packages\Benchmarque.0.1.10\lib\net40\Benchmarque.dll</HintPath>
+    </Reference>
     <Reference Include="nunit.framework">
       <HintPath>..\packages\NUnit.2.6.0.12054\lib\nunit.framework.dll</HintPath>
+    </Reference>
+    <Reference Include="StructureMap">
+      <HintPath>..\packages\structuremap.2.6.3\lib\StructureMap.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Benchmarks\ComponentFactory.cs" />
+    <Compile Include="Benchmarks\ComponentFactoryObjectCreation.cs" />
+    <Compile Include="Benchmarks\ContainerObjectCreation.cs" />
+    <Compile Include="Benchmarks\Factory.cs" />
+    <Compile Include="Benchmarks\NewObjectCreation.cs" />
+    <Compile Include="Benchmarks\ObjectCreation.cs" />
+    <Compile Include="Benchmarks\ObjectCreationBenchmark.cs" />
+    <Compile Include="Benchmarks\StructureMapObjectCreation.cs" />
+    <Compile Include="Benchmarks\TypeExtensions.cs" />
+    <Compile Include="Configuration\Empty_Specs.cs" />
+    <Compile Include="Configuration\NoDependency_Specs.cs" />
+    <Compile Include="Configuration\Singleton_Specs.cs" />
     <Compile Include="Curry_Specs.cs" />
     <Compile Include="Factory_Specs.cs" />
     <Compile Include="ImplementationFactory_Specs.cs" />
+    <Compile Include="Performance\Performance_Specs.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -1,4 +1,4 @@
-﻿namespace ServiceBook
+﻿namespace ServiceBook.Factories
 {
     using System;
 

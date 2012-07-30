@@ -35,6 +35,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Configuration\BuilderConfigurators\ContainerBuilderConfigurator.cs" />
     <Compile Include="Configuration\Builders\ContainerBuilder.cs" />
     <Compile Include="Configuration\Builders\ContainerBuilderImpl.cs" />
     <Compile Include="Configuration\ConfiguratorExtensions.cs" />
@@ -47,20 +48,40 @@
     <Compile Include="Configuration\ContainerConfigurator.cs" />
     <Compile Include="Configuration\ContainerConfigurators\ContainerBuilderFactory.cs" />
     <Compile Include="Configuration\ContainerConfigurators\ContainerConfiguratorImpl.cs" />
+    <Compile Include="Configuration\FactoryConfigurator.cs" />
+    <Compile Include="Configuration\FactoryConfigurators\FactoryConfiguratorImpl.cs" />
+    <Compile Include="Configuration\FactoryConfigurators\SingletonFactoryConfiguratorImpl.cs" />
+    <Compile Include="Configuration\FactoryConfigurators\UniqueFactoryConfiguratorImpl.cs" />
+    <Compile Include="Configuration\SingletonConfiguratorExtensions.cs" />
+    <Compile Include="Configuration\SingletonFactoryConfigurator.cs" />
+    <Compile Include="Configuration\RegistrationConvention.cs" />
+    <Compile Include="Configuration\UniqueConfiguratorExtensions.cs" />
+    <Compile Include="Configuration\UniqueFactoryConfigurator.cs" />
     <Compile Include="Configuration\ValidationResultExtensions.cs" />
     <Compile Include="Container.cs" />
-    <Compile Include="CurryFactory.cs" />
+    <Compile Include="ContainerScope.cs" />
+    <Compile Include="Conventions\ClosedTypeRegistrationFactory.cs" />
+    <Compile Include="Conventions\ConcreteTypeRegistrationConvention.cs" />
+    <Compile Include="Conventions\DefaultConstructorRegistrationFactory.cs" />
+    <Compile Include="Conventions\MultipleRegistrationConvention.cs" />
+    <Compile Include="Factories\CurryFactory.cs" />
     <Compile Include="Exceptions\ContainerConfigurationException.cs" />
     <Compile Include="Exceptions\ServiceBookException.cs" />
     <Compile Include="Factory.cs" />
-    <Compile Include="FactoryImpl.cs" />
+    <Compile Include="Factories\FactoryImpl.cs" />
     <Compile Include="Internals\**\*.cs" />
+    <Compile Include="Registrations\DefaultTypeRegistrationResolver.cs" />
+    <Compile Include="Registrations\Registration.cs" />
+    <Compile Include="Registrations\ClosedTypeRegistration.cs" />
+    <Compile Include="Registrations\RegistrationFactory.cs" />
+    <Compile Include="Registrations\TypeRegistrationResolver.cs" />
     <Compile Include="ReleaseHandler.cs" />
+    <Compile Include="ReleaseHandlers\DisposeReleaseHandler.cs" />
     <Compile Include="ServiceBookContainer.cs" />
     <Compile Include="ServiceBookFactory.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="NoArgumentFactory.cs" />
+    <Compile Include="Factories\DefaultConstructorFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />

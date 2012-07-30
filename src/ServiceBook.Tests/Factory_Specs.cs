@@ -1,5 +1,6 @@
 ﻿namespace ServiceBook.Tests
 {
+    using Factories;
     using NUnit.Framework;
 
     [TestFixture]
@@ -8,7 +9,7 @@
         [Test]
         public void Should_work()
         {
-            var factory = new NoArgumentFactory<MyClass>(() => new MyClass());
+            Factory<MyClass> factory = new DefaultConstructorFactory<MyClass>();
 
             MyClass subject = factory.Get();
 

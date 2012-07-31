@@ -5,6 +5,7 @@
 namespace ServiceBook.Registrations.RegistrationFactories
 {
     using System;
+    using System.Collections.Generic;
     using System.Linq;
     using System.Reflection;
     using Factories;
@@ -48,7 +49,7 @@ namespace ServiceBook.Registrations.RegistrationFactories
         ClosedTypeRegistrationFactory<T>
     {
         public ConstructorRegistrationFactory(ConstructorInfo constructor, Registration[] registrations)
-            : base(GetConstructorFactory(constructor, registrations))
+            : base(GetConstructorFactory(constructor, registrations), GetDependencyTypes())
         {
         }
 
@@ -60,6 +61,16 @@ namespace ServiceBook.Registrations.RegistrationFactories
 
                     return factory<#=tPartials#>;
                 };
+        }
+
+        static IEnumerable<Type> GetDependencyTypes()
+        {
+<# for(int k=1; k<=i; k++){ #>
+            yield return typeof(<#=string.Format("T{0}", k)#>);
+<#}#>
+<# if(i == 0) { #>
+            yield break;
+<#}#>
         }
     }
     

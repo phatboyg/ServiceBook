@@ -67,6 +67,7 @@
     <Compile Include="Configuration\Empty_Specs.cs" />
     <Compile Include="Configuration\NoDependency_Specs.cs" />
     <Compile Include="Configuration\Singleton_Specs.cs" />
+    <Compile Include="Conventions\DependencyOrder_Specs.cs" />
     <Compile Include="Curry_Specs.cs" />
     <Compile Include="Factory_Specs.cs" />
     <Compile Include="ImplementationFactory_Specs.cs" />

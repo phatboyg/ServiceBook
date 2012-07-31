@@ -67,8 +67,11 @@ namespace ServiceBook.Conventions
             if (parameters.Length == arguments.Length)
             {
                 RegistrationFactory factory = ConstructorRegistrationFactory.Create(type, constructorInfo, arguments);
-                yield return factory.Get();
+
+                return arguments.Concat(Enumerable.Repeat(factory.Get(), 1));
             }
+
+            return Enumerable.Empty<Registration>();
         }
     }
 }

@@ -5,7 +5,7 @@
         void OnRelease(object obj);
     }
 
-    public interface ReleaseHandler<T> :
+    public interface ReleaseHandler<out T> :
         ReleaseHandler
     {
     }

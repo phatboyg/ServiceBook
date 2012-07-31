@@ -39,6 +39,7 @@
     <Compile Include="Configuration\Builders\ContainerBuilder.cs" />
     <Compile Include="Configuration\Builders\ContainerBuilderImpl.cs" />
     <Compile Include="Configuration\ConfiguratorExtensions.cs" />
+    <Compile Include="Configuration\ConfigureContainer.cs" />
     <Compile Include="Configuration\ConfigureResult.cs" />
     <Compile Include="Configuration\Configurators\ContainerConfigureResult.cs" />
     <Compile Include="Configuration\Configurators\Configurator.cs" />
@@ -87,7 +88,17 @@
     <Compile Include="Factories\FactoryExtensions.cs" />
     <Compile Include="Factories\IFactory.cs" />
     <Compile Include="Internals\**\*.cs" />
-    <Compile Include="Registrations\DefaultTypeRegistrationResolver.cs" />
+    <Compile Include="Registrations\Algorithms\DependencyGraph.cs" />
+    <Compile Include="Registrations\Algorithms\Implementations\AdjacencyList.cs" />
+    <Compile Include="Registrations\Algorithms\Implementations\DependencyGraphNode.cs" />
+    <Compile Include="Registrations\Algorithms\Implementations\Edge.cs" />
+    <Compile Include="Registrations\Algorithms\Implementations\Node.cs" />
+    <Compile Include="Registrations\Algorithms\Implementations\NodeList.cs" />
+    <Compile Include="Registrations\Algorithms\Implementations\NodeTable.cs" />
+    <Compile Include="Registrations\Algorithms\Implementations\Tarjan.cs" />
+    <Compile Include="Registrations\Algorithms\Implementations\TarjanNodeProperties.cs" />
+    <Compile Include="Registrations\Algorithms\Implementations\TopologicalSort.cs" />
+    <Compile Include="Registrations\Algorithms\Implementations\TopologicalSortNodeProperties.cs" />
     <Compile Include="Registrations\Registration.cs" />
     <Compile Include="Registrations\ClosedTypeRegistration.cs" />
     <Compile Include="Registrations\RegistrationCatalog.cs" />

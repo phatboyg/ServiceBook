@@ -1,6 +1,7 @@
 namespace ServiceBook.Registrations.RegistrationFactories
 {
     using System;
+    using System.Collections.Generic;
 
     /// <summary>
     /// Creates a registration for a closed type (no open generic arguments) using the 
@@ -10,6 +11,7 @@ namespace ServiceBook.Registrations.RegistrationFactories
     public class ClosedTypeRegistrationFactory<T> :
         RegistrationFactory
     {
+        readonly IEnumerable<Type> _dependencyTypes;
         readonly Func<Registration> _registrationFactory;
 
         /// <summary>
@@ -17,8 +19,10 @@ namespace ServiceBook.Registrations.RegistrationFactories
         /// registration is resolved.
         /// </summary>
         /// <param name="factoryFactory"></param>
-        public ClosedTypeRegistrationFactory(Func<Factory<T>> factoryFactory)
+        /// <param name="dependencyTypes"> </param>
+        public ClosedTypeRegistrationFactory(Func<Factory<T>> factoryFactory, IEnumerable<Type> dependencyTypes)
         {
+            _dependencyTypes = dependencyTypes;
             Registration registration = null;
             bool created = false;
 
@@ -34,6 +38,16 @@ namespace ServiceBook.Registrations.RegistrationFactories
 
                     return registration;
                 };
+        }
+
+        public Type RegistrationType
+        {
+            get { return typeof(T); }
+        }
+
+        public IEnumerable<Type> DependencyTypes
+        {
+            get { return _dependencyTypes; }
         }
 
         public Registration Get()

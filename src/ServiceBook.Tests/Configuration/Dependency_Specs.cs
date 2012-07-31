@@ -82,6 +82,24 @@
             Assert.IsNotNull(subject.B.A);
         }
 
+        [Test]
+        public void Should_get_dependency_first_then_parent()
+        {
+            Container container = ContainerFactory.New(x => { });
+
+            var subjectA = container.Get<A>();
+            Assert.IsNotNull(subjectA);
+
+            var subjectB = container.Get<B>();
+            Assert.IsNotNull(subjectB);
+            Assert.IsNotNull(subjectB.A);
+
+            var subjectC = container.Get<C>();
+            Assert.IsNotNull(subjectC);
+            Assert.IsNotNull(subjectC.B);
+            Assert.IsNotNull(subjectC.B.A);
+        }
+
         class A
         {
         }

@@ -1,6 +1,7 @@
 ﻿namespace ServiceBook.Registrations.RegistrationFactories
 {
     using System;
+    using System.Collections.Generic;
     using System.Linq;
     using System.Reflection;
     using Factories;
@@ -53,7 +54,7 @@
         ClosedTypeRegistrationFactory<T>
     {
         public ConstructorRegistrationFactory(ConstructorInfo constructor, Registration[] registrations)
-            : base(GetConstructorFactory(constructor, registrations))
+            : base(GetConstructorFactory(constructor, registrations), GetDependencyTypes())
         {
         }
 
@@ -66,13 +67,18 @@
                     return factory;
                 };
         }
+
+        static IEnumerable<Type> GetDependencyTypes()
+        {
+            yield break;
+        }
     }
     
     public class ConstructorRegistrationFactory<T,T1> :
         ClosedTypeRegistrationFactory<T>
     {
         public ConstructorRegistrationFactory(ConstructorInfo constructor, Registration[] registrations)
-            : base(GetConstructorFactory(constructor, registrations))
+            : base(GetConstructorFactory(constructor, registrations), GetDependencyTypes())
         {
         }
 
@@ -85,13 +91,18 @@
                     return factory.ApplyPartial(registrations[0]);
                 };
         }
+
+        static IEnumerable<Type> GetDependencyTypes()
+        {
+            yield return typeof(T1);
+        }
     }
     
     public class ConstructorRegistrationFactory<T,T1,T2> :
         ClosedTypeRegistrationFactory<T>
     {
         public ConstructorRegistrationFactory(ConstructorInfo constructor, Registration[] registrations)
-            : base(GetConstructorFactory(constructor, registrations))
+            : base(GetConstructorFactory(constructor, registrations), GetDependencyTypes())
         {
         }
 
@@ -105,13 +116,19 @@
                                   .ApplyPartial(registrations[0]);
                 };
         }
+
+        static IEnumerable<Type> GetDependencyTypes()
+        {
+            yield return typeof(T1);
+            yield return typeof(T2);
+        }
     }
     
     public class ConstructorRegistrationFactory<T,T1,T2,T3> :
         ClosedTypeRegistrationFactory<T>
     {
         public ConstructorRegistrationFactory(ConstructorInfo constructor, Registration[] registrations)
-            : base(GetConstructorFactory(constructor, registrations))
+            : base(GetConstructorFactory(constructor, registrations), GetDependencyTypes())
         {
         }
 
@@ -126,13 +143,20 @@
                                   .ApplyPartial(registrations[0]);
                 };
         }
+
+        static IEnumerable<Type> GetDependencyTypes()
+        {
+            yield return typeof(T1);
+            yield return typeof(T2);
+            yield return typeof(T3);
+        }
     }
     
     public class ConstructorRegistrationFactory<T,T1,T2,T3,T4> :
         ClosedTypeRegistrationFactory<T>
     {
         public ConstructorRegistrationFactory(ConstructorInfo constructor, Registration[] registrations)
-            : base(GetConstructorFactory(constructor, registrations))
+            : base(GetConstructorFactory(constructor, registrations), GetDependencyTypes())
         {
         }
 
@@ -148,13 +172,21 @@
                                   .ApplyPartial(registrations[0]);
                 };
         }
+
+        static IEnumerable<Type> GetDependencyTypes()
+        {
+            yield return typeof(T1);
+            yield return typeof(T2);
+            yield return typeof(T3);
+            yield return typeof(T4);
+        }
     }
     
     public class ConstructorRegistrationFactory<T,T1,T2,T3,T4,T5> :
         ClosedTypeRegistrationFactory<T>
     {
         public ConstructorRegistrationFactory(ConstructorInfo constructor, Registration[] registrations)
-            : base(GetConstructorFactory(constructor, registrations))
+            : base(GetConstructorFactory(constructor, registrations), GetDependencyTypes())
         {
         }
 
@@ -171,13 +203,22 @@
                                   .ApplyPartial(registrations[0]);
                 };
         }
+
+        static IEnumerable<Type> GetDependencyTypes()
+        {
+            yield return typeof(T1);
+            yield return typeof(T2);
+            yield return typeof(T3);
+            yield return typeof(T4);
+            yield return typeof(T5);
+        }
     }
     
     public class ConstructorRegistrationFactory<T,T1,T2,T3,T4,T5,T6> :
         ClosedTypeRegistrationFactory<T>
     {
         public ConstructorRegistrationFactory(ConstructorInfo constructor, Registration[] registrations)
-            : base(GetConstructorFactory(constructor, registrations))
+            : base(GetConstructorFactory(constructor, registrations), GetDependencyTypes())
         {
         }
 
@@ -195,13 +236,23 @@
                                   .ApplyPartial(registrations[0]);
                 };
         }
+
+        static IEnumerable<Type> GetDependencyTypes()
+        {
+            yield return typeof(T1);
+            yield return typeof(T2);
+            yield return typeof(T3);
+            yield return typeof(T4);
+            yield return typeof(T5);
+            yield return typeof(T6);
+        }
     }
     
     public class ConstructorRegistrationFactory<T,T1,T2,T3,T4,T5,T6,T7> :
         ClosedTypeRegistrationFactory<T>
     {
         public ConstructorRegistrationFactory(ConstructorInfo constructor, Registration[] registrations)
-            : base(GetConstructorFactory(constructor, registrations))
+            : base(GetConstructorFactory(constructor, registrations), GetDependencyTypes())
         {
         }
 
@@ -220,13 +271,24 @@
                                   .ApplyPartial(registrations[0]);
                 };
         }
+
+        static IEnumerable<Type> GetDependencyTypes()
+        {
+            yield return typeof(T1);
+            yield return typeof(T2);
+            yield return typeof(T3);
+            yield return typeof(T4);
+            yield return typeof(T5);
+            yield return typeof(T6);
+            yield return typeof(T7);
+        }
     }
     
     public class ConstructorRegistrationFactory<T,T1,T2,T3,T4,T5,T6,T7,T8> :
         ClosedTypeRegistrationFactory<T>
     {
         public ConstructorRegistrationFactory(ConstructorInfo constructor, Registration[] registrations)
-            : base(GetConstructorFactory(constructor, registrations))
+            : base(GetConstructorFactory(constructor, registrations), GetDependencyTypes())
         {
         }
 
@@ -246,13 +308,25 @@
                                   .ApplyPartial(registrations[0]);
                 };
         }
+
+        static IEnumerable<Type> GetDependencyTypes()
+        {
+            yield return typeof(T1);
+            yield return typeof(T2);
+            yield return typeof(T3);
+            yield return typeof(T4);
+            yield return typeof(T5);
+            yield return typeof(T6);
+            yield return typeof(T7);
+            yield return typeof(T8);
+        }
     }
     
     public class ConstructorRegistrationFactory<T,T1,T2,T3,T4,T5,T6,T7,T8,T9> :
         ClosedTypeRegistrationFactory<T>
     {
         public ConstructorRegistrationFactory(ConstructorInfo constructor, Registration[] registrations)
-            : base(GetConstructorFactory(constructor, registrations))
+            : base(GetConstructorFactory(constructor, registrations), GetDependencyTypes())
         {
         }
 
@@ -273,13 +347,26 @@
                                   .ApplyPartial(registrations[0]);
                 };
         }
+
+        static IEnumerable<Type> GetDependencyTypes()
+        {
+            yield return typeof(T1);
+            yield return typeof(T2);
+            yield return typeof(T3);
+            yield return typeof(T4);
+            yield return typeof(T5);
+            yield return typeof(T6);
+            yield return typeof(T7);
+            yield return typeof(T8);
+            yield return typeof(T9);
+        }
     }
     
     public class ConstructorRegistrationFactory<T,T1,T2,T3,T4,T5,T6,T7,T8,T9,T10> :
         ClosedTypeRegistrationFactory<T>
     {
         public ConstructorRegistrationFactory(ConstructorInfo constructor, Registration[] registrations)
-            : base(GetConstructorFactory(constructor, registrations))
+            : base(GetConstructorFactory(constructor, registrations), GetDependencyTypes())
         {
         }
 
@@ -301,13 +388,27 @@
                                   .ApplyPartial(registrations[0]);
                 };
         }
+
+        static IEnumerable<Type> GetDependencyTypes()
+        {
+            yield return typeof(T1);
+            yield return typeof(T2);
+            yield return typeof(T3);
+            yield return typeof(T4);
+            yield return typeof(T5);
+            yield return typeof(T6);
+            yield return typeof(T7);
+            yield return typeof(T8);
+            yield return typeof(T9);
+            yield return typeof(T10);
+        }
     }
     
     public class ConstructorRegistrationFactory<T,T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11> :
         ClosedTypeRegistrationFactory<T>
     {
         public ConstructorRegistrationFactory(ConstructorInfo constructor, Registration[] registrations)
-            : base(GetConstructorFactory(constructor, registrations))
+            : base(GetConstructorFactory(constructor, registrations), GetDependencyTypes())
         {
         }
 
@@ -330,13 +431,28 @@
                                   .ApplyPartial(registrations[0]);
                 };
         }
+
+        static IEnumerable<Type> GetDependencyTypes()
+        {
+            yield return typeof(T1);
+            yield return typeof(T2);
+            yield return typeof(T3);
+            yield return typeof(T4);
+            yield return typeof(T5);
+            yield return typeof(T6);
+            yield return typeof(T7);
+            yield return typeof(T8);
+            yield return typeof(T9);
+            yield return typeof(T10);
+            yield return typeof(T11);
+        }
     }
     
     public class ConstructorRegistrationFactory<T,T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12> :
         ClosedTypeRegistrationFactory<T>
     {
         public ConstructorRegistrationFactory(ConstructorInfo constructor, Registration[] registrations)
-            : base(GetConstructorFactory(constructor, registrations))
+            : base(GetConstructorFactory(constructor, registrations), GetDependencyTypes())
         {
         }
 
@@ -360,13 +476,29 @@
                                   .ApplyPartial(registrations[0]);
                 };
         }
+
+        static IEnumerable<Type> GetDependencyTypes()
+        {
+            yield return typeof(T1);
+            yield return typeof(T2);
+            yield return typeof(T3);
+            yield return typeof(T4);
+            yield return typeof(T5);
+            yield return typeof(T6);
+            yield return typeof(T7);
+            yield return typeof(T8);
+            yield return typeof(T9);
+            yield return typeof(T10);
+            yield return typeof(T11);
+            yield return typeof(T12);
+        }
     }
     
     public class ConstructorRegistrationFactory<T,T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13> :
         ClosedTypeRegistrationFactory<T>
     {
         public ConstructorRegistrationFactory(ConstructorInfo constructor, Registration[] registrations)
-            : base(GetConstructorFactory(constructor, registrations))
+            : base(GetConstructorFactory(constructor, registrations), GetDependencyTypes())
         {
         }
 
@@ -391,13 +523,30 @@
                                   .ApplyPartial(registrations[0]);
                 };
         }
+
+        static IEnumerable<Type> GetDependencyTypes()
+        {
+            yield return typeof(T1);
+            yield return typeof(T2);
+            yield return typeof(T3);
+            yield return typeof(T4);
+            yield return typeof(T5);
+            yield return typeof(T6);
+            yield return typeof(T7);
+            yield return typeof(T8);
+            yield return typeof(T9);
+            yield return typeof(T10);
+            yield return typeof(T11);
+            yield return typeof(T12);
+            yield return typeof(T13);
+        }
     }
     
     public class ConstructorRegistrationFactory<T,T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14> :
         ClosedTypeRegistrationFactory<T>
     {
         public ConstructorRegistrationFactory(ConstructorInfo constructor, Registration[] registrations)
-            : base(GetConstructorFactory(constructor, registrations))
+            : base(GetConstructorFactory(constructor, registrations), GetDependencyTypes())
         {
         }
 
@@ -423,13 +572,31 @@
                                   .ApplyPartial(registrations[0]);
                 };
         }
+
+        static IEnumerable<Type> GetDependencyTypes()
+        {
+            yield return typeof(T1);
+            yield return typeof(T2);
+            yield return typeof(T3);
+            yield return typeof(T4);
+            yield return typeof(T5);
+            yield return typeof(T6);
+            yield return typeof(T7);
+            yield return typeof(T8);
+            yield return typeof(T9);
+            yield return typeof(T10);
+            yield return typeof(T11);
+            yield return typeof(T12);
+            yield return typeof(T13);
+            yield return typeof(T14);
+        }
     }
     
     public class ConstructorRegistrationFactory<T,T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15> :
         ClosedTypeRegistrationFactory<T>
     {
         public ConstructorRegistrationFactory(ConstructorInfo constructor, Registration[] registrations)
-            : base(GetConstructorFactory(constructor, registrations))
+            : base(GetConstructorFactory(constructor, registrations), GetDependencyTypes())
         {
         }
 
@@ -455,6 +622,25 @@
                                   .ApplyPartial(registrations[1])
                                   .ApplyPartial(registrations[0]);
                 };
+        }
+
+        static IEnumerable<Type> GetDependencyTypes()
+        {
+            yield return typeof(T1);
+            yield return typeof(T2);
+            yield return typeof(T3);
+            yield return typeof(T4);
+            yield return typeof(T5);
+            yield return typeof(T6);
+            yield return typeof(T7);
+            yield return typeof(T8);
+            yield return typeof(T9);
+            yield return typeof(T10);
+            yield return typeof(T11);
+            yield return typeof(T12);
+            yield return typeof(T13);
+            yield return typeof(T14);
+            yield return typeof(T15);
         }
     }
     

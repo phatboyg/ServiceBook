@@ -63,19 +63,31 @@
     <Compile Include="Conventions\ClosedTypeRegistrationFactory.cs" />
     <Compile Include="Conventions\ConcreteTypeRegistrationConvention.cs" />
     <Compile Include="Conventions\ConstructorRegistrationFactory.cs" />
-    <Compile Include="Conventions\FactoryImpl.cs" />
     <Compile Include="Conventions\MultipleRegistrationConvention.cs" />
+    <Compile Include="Factories\ConstructorFactory.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ConstructorFactory.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Factories\PartialFactory.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PartialFactory.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Factories\PartialFactoryExtensions.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PartialFactoryExtensions.tt</DependentUpon>
+    </Compile>
     <Compile Include="Factory.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Factory.tt</DependentUpon>
     </Compile>
-    <Compile Include="Factories\PartialFactory.cs" />
     <Compile Include="Exceptions\ContainerConfigurationException.cs" />
     <Compile Include="Exceptions\ServiceBookException.cs" />
     <Compile Include="Factories\FactoryExtensions.cs" />
     <Compile Include="Factories\IFactory.cs" />
-    <Compile Include="Factories\ConstructorFactory.cs" />
     <Compile Include="Internals\**\*.cs" />
     <Compile Include="Registrations\DefaultTypeRegistrationResolver.cs" />
     <Compile Include="Registrations\Registration.cs" />
@@ -88,10 +100,21 @@
     <Compile Include="ServiceBookFactory.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Factories\DefaultConstructorFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Factories\ConstructorFactory.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>ConstructorFactory.cs</LastGenOutput>
+    </None>
+    <None Include="Factories\PartialFactory.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>PartialFactory.cs</LastGenOutput>
+    </None>
+    <None Include="Factories\PartialFactoryExtensions.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>PartialFactoryExtensions.cs</LastGenOutput>
+    </None>
     <None Include="Factory.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>Factory.cs</LastGenOutput>

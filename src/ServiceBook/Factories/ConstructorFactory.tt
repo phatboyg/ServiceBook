@@ -1,0 +1,49 @@
+﻿<#@ template debug="false" hostspecific="false" language="C#" #>
+<#@ output extension="cs" #>
+<#@ assembly  name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+namespace ServiceBook.Factories
+{
+    using System;
+    using System.Reflection;
+    using System.Linq.Expressions;
+
+<# for(int i=0; i<16; i++){
+    var tResultArgs = String.Concat(Enumerable.Range(1,i).Select(it=>String.Format(",T{0}",it)));
+    var tInputArgs = String.Concat(Enumerable.Range(1,i).Select(it=>String.Format(",T{0}",it)));
+    var tFuncArgs = String.Join(",",Enumerable.Range(1,i).Select(it=>String.Format("T{0}",it)).Concat(Enumerable.Repeat("T",1)));
+    var tMethodArgs = String.Join(", ", Enumerable.Range(1,i).Select(it=>String.Format("Factory<T{0}> arg{0}",it)));
+    var tLastArg = String.Format("T{0}",i+1);
+    var tLastArgName = String.Format("arg{0}",i+1);
+    var tCallArgs = String.Join(", ", Enumerable.Range(1,i).Select(it=>String.Format("arg{0}.Get()",it)));
+#>
+    public class ConstructorFactory<T<#=tInputArgs#>> :
+        Factory<T<#=tInputArgs#>>
+    {
+        readonly Func<<#=tFuncArgs#>> _get;
+
+        public ConstructorFactory(ConstructorInfo constructorInfo)
+        {
+            _get = this.GetFactoryMethod<Func<<#=tFuncArgs#>>>(constructorInfo);
+        }
+
+        public ConstructorFactory(Expression<Func<<#=tFuncArgs#>>> constructorExpression)
+        {
+            var newExpression = constructorExpression.Body as NewExpression;
+            if (newExpression == null)
+                throw new ArgumentException("Only a constructor can be specified", "constructorExpression");
+
+            _get = this.GetFactoryMethod<Func<<#=tFuncArgs#>>>(newExpression.Constructor);
+        }
+
+        T Factory<T<#=tInputArgs#>>.Get(<#=tMethodArgs#>)
+        {
+            return _get(<#=tCallArgs#>);
+        }
+    }
+
+
+<# 
+    }
+#>
+}

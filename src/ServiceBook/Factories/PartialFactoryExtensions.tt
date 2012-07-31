@@ -1,0 +1,28 @@
+﻿<#@ template debug="false" hostspecific="false" language="C#" #>
+<#@ output extension="cs" #>
+<#@ assembly  name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+namespace ServiceBook
+{
+    using Factories;
+    using Registrations;
+
+    public static class PartialFactoryExtensions
+    {
+<# for(int i=0; i<16-1; i++){
+    var tResultArgs = String.Concat(Enumerable.Range(2,i).Select(it=>String.Format(",T{0}",it-1)));
+    var tInputArgs = String.Concat(Enumerable.Range(1,i+1).Select(it=>String.Format(",T{0}",it)));
+    var tLastArg = String.Format("T{0}",i+1);
+#>
+        public static Factory<T<#=tResultArgs#>> ApplyPartial<T<#=tInputArgs#>>(this Factory<T<#=tInputArgs#>> source, Registration registration)
+        {
+            var partial = new PartialFactory<T<#=tInputArgs#>>(source, registration.GetFactory<<#=tLastArg#>>());
+
+            return partial;
+        }
+
+<# 
+    }
+#>
+    }
+}

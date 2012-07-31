@@ -10,7 +10,7 @@
         public void Should_narrow_the_factory_width()
         {
             var factory = new ConstructorFactory<MyClass, MyDependency>(x => new MyClass(x));
-            var dependencyFactory = new DefaultConstructorFactory<MyDependency>();
+            var dependencyFactory = new ConstructorFactory<MyDependency>(() => new MyDependency());
             var curryFactory = new PartialFactory<MyClass, MyDependency>(factory, dependencyFactory);
             MyClass subject = curryFactory.Get();
 

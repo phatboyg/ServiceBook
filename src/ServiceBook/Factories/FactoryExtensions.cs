@@ -1,10 +1,11 @@
-namespace ServiceBook.Factories
+namespace ServiceBook
 {
     using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Linq.Expressions;
     using System.Reflection;
+    using Factories;
     using Registrations;
 
     public static class FactoryExtensions
@@ -48,44 +49,6 @@ namespace ServiceBook.Factories
                     registration.Type));
 
             return factoryRegistration.Factory;
-        }
-
-        public static Factory<T> ApplyPartial<T, T1>(this Factory<T, T1> source, Registration registration)
-        {
-            var partial = new PartialFactory<T, T1>(source, registration.GetFactory<T1>());
-
-            return partial;
-        }
-
-        public static Factory<T, T1> ApplyPartial<T, T1, T2>(this Factory<T, T1, T2> source, Registration registration)
-        {
-            var partial = new PartialFactory<T, T1, T2>(source, registration.GetFactory<T2>());
-
-            return partial;
-        }
-
-        public static Factory<T, T1, T2> ApplyPartial<T, T1, T2, T3>(this Factory<T, T1, T2, T3> source,
-            Registration registration)
-        {
-            var partial = new PartialFactory<T, T1, T2, T3>(source, registration.GetFactory<T3>());
-
-            return partial;
-        }
-
-        public static Factory<T, T1, T2, T3> ApplyPartial<T, T1, T2, T3, T4>(this Factory<T, T1, T2, T3, T4> source,
-            Registration registration)
-        {
-            var partial = new PartialFactory<T, T1, T2, T3, T4>(source, registration.GetFactory<T4>());
-
-            return partial;
-        }
-
-        public static Factory<T, T1, T2, T3, T4> ApplyPartial<T, T1, T2, T3, T4, T5>(
-            this Factory<T, T1, T2, T3, T4, T5> source, Registration registration)
-        {
-            var partial = new PartialFactory<T, T1, T2, T3, T4, T5>(source, registration.GetFactory<T5>());
-
-            return partial;
         }
     }
 }

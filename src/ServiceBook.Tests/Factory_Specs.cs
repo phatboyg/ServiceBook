@@ -9,7 +9,7 @@
         [Test]
         public void Should_work()
         {
-            Factory<MyClass> factory = new DefaultConstructorFactory<MyClass>();
+            Factory<MyClass> factory = new ConstructorFactory<MyClass>(() => new MyClass());
 
             MyClass subject = factory.Get();
 

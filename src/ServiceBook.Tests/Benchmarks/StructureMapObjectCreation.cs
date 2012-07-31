@@ -9,9 +9,7 @@ namespace ServiceBook.Tests.Benchmarks
 
         public StructureMapObjectCreation()
         {
-            _container = new Container(x =>
-                {
-                });
+            _container = new Container(x => { });
         }
 
         public T Get<T>()

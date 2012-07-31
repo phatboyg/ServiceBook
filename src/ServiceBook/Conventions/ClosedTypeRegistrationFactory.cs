@@ -1,6 +1,7 @@
 namespace ServiceBook.Conventions
 {
     using System;
+    using Factories;
     using Registrations;
 
     /// <summary>

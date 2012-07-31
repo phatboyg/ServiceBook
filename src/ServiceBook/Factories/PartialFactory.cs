@@ -1,12 +1,12 @@
 namespace ServiceBook.Factories
 {
-    public class CurryFactory<T, T1> :
+    public class PartialFactory<T, T1> :
         Factory<T>
     {
         Factory<T1> _arg1;
         Factory<T, T1> _factory;
 
-        public CurryFactory(Factory<T, T1> factory, Factory<T1> arg1)
+        public PartialFactory(Factory<T, T1> factory, Factory<T1> arg1)
         {
             _factory = factory;
             _arg1 = arg1;
@@ -18,13 +18,13 @@ namespace ServiceBook.Factories
         }
     }
 
-    public class CurryFactory<T, T1, T2> :
+    public class PartialFactory<T, T1, T2> :
         Factory<T, T1>
     {
         readonly Factory<T2> _arg2;
         readonly Factory<T, T1, T2> _factory;
 
-        public CurryFactory(Factory<T, T1, T2> factory, Factory<T2> arg2)
+        public PartialFactory(Factory<T, T1, T2> factory, Factory<T2> arg2)
         {
             _factory = factory;
             _arg2 = arg2;
@@ -36,13 +36,13 @@ namespace ServiceBook.Factories
         }
     }
 
-    public class CurryFactory<T, T1, T2, T3> :
+    public class PartialFactory<T, T1, T2, T3> :
         Factory<T, T1, T2>
     {
         readonly Factory<T3> _arg3;
         readonly Factory<T, T1, T2, T3> _factory;
 
-        public CurryFactory(Factory<T, T1, T2, T3> factory, Factory<T3> arg3)
+        public PartialFactory(Factory<T, T1, T2, T3> factory, Factory<T3> arg3)
         {
             _factory = factory;
             _arg3 = arg3;
@@ -54,13 +54,13 @@ namespace ServiceBook.Factories
         }
     }
 
-    public class CurryFactory<T, T1, T2, T3, T4> :
+    public class PartialFactory<T, T1, T2, T3, T4> :
         Factory<T, T1, T2, T3>
     {
         readonly Factory<T4> _arg4;
         readonly Factory<T, T1, T2, T3, T4> _factory;
 
-        public CurryFactory(Factory<T, T1, T2, T3, T4> factory, Factory<T4> arg4)
+        public PartialFactory(Factory<T, T1, T2, T3, T4> factory, Factory<T4> arg4)
         {
             _factory = factory;
             _arg4 = arg4;
@@ -69,6 +69,24 @@ namespace ServiceBook.Factories
         T Factory<T, T1, T2, T3>.Get(Factory<T1> arg1, Factory<T2> arg2, Factory<T3> arg3)
         {
             return _factory.Get(arg1, arg2, arg3, _arg4);
+        }
+    }
+
+    public class PartialFactory<T, T1, T2, T3, T4, T5> :
+        Factory<T, T1, T2, T3, T4>
+    {
+        readonly Factory<T5> _arg5;
+        readonly Factory<T, T1, T2, T3, T4, T5> _factory;
+
+        public PartialFactory(Factory<T, T1, T2, T3, T4, T5> factory, Factory<T5> arg5)
+        {
+            _factory = factory;
+            _arg5 = arg5;
+        }
+
+        T Factory<T, T1, T2, T3, T4>.Get(Factory<T1> arg1, Factory<T2> arg2, Factory<T3> arg3, Factory<T4> arg4)
+        {
+            return _factory.Get(arg1, arg2, arg3, arg4, _arg5);
         }
     }
 }

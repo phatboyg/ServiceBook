@@ -18,6 +18,7 @@
             _factoryCache.Add(2, typeof(ConstructorRegistrationFactory<,,>));
             _factoryCache.Add(3, typeof(ConstructorRegistrationFactory<,,,>));
             _factoryCache.Add(4, typeof(ConstructorRegistrationFactory<,,,,>));
+            _factoryCache.Add(5, typeof(ConstructorRegistrationFactory<,,,,,>));
         }
 
         public static RegistrationFactory Create(Type type, ConstructorInfo constructorInfo, Registration[] dependencies)
@@ -60,11 +61,9 @@
         {
             return () =>
                 {
-                    Factory<T1> factory1 = GetFactory<T1>(registrations[0]);
-
                     var factory = new ConstructorFactory<T, T1>(constructor);
 
-                    return new CurryFactory<T, T1>(factory, factory1);
+                    return factory.ApplyPartial(registrations[0]);
                 };
         }
     }
@@ -81,14 +80,11 @@
         {
             return () =>
                 {
-                    Factory<T1> factory1 = GetFactory<T1>(registrations[0]);
-                    Factory<T2> factory2 = GetFactory<T2>(registrations[1]);
-
                     var factory = new ConstructorFactory<T, T1, T2>(constructor);
 
-                    var curryFactory2 = new CurryFactory<T, T1, T2>(factory, factory2);
-
-                    return new CurryFactory<T, T1>(curryFactory2, factory1);
+                    return factory
+                        .ApplyPartial(registrations[1])
+                        .ApplyPartial(registrations[0]);
                 };
         }
     }
@@ -105,16 +101,11 @@
         {
             return () =>
                 {
-                    Factory<T1> factory1 = GetFactory<T1>(registrations[0]);
-                    Factory<T2> factory2 = GetFactory<T2>(registrations[1]);
-                    Factory<T3> factory3 = GetFactory<T3>(registrations[2]);
-
                     var factory = new ConstructorFactory<T, T1, T2, T3>(constructor);
-
-                    var curryFactory3 = new CurryFactory<T, T1, T2, T3>(factory, factory3);
-                    var curryFactory2 = new CurryFactory<T, T1, T2>(curryFactory3, factory2);
-
-                    return new CurryFactory<T, T1>(curryFactory2, factory1);
+                    return factory
+                        .ApplyPartial(registrations[2])
+                        .ApplyPartial(registrations[1])
+                        .ApplyPartial(registrations[0]);
                 };
         }
     }
@@ -131,18 +122,35 @@
         {
             return () =>
                 {
-                    Factory<T1> factory1 = GetFactory<T1>(registrations[0]);
-                    Factory<T2> factory2 = GetFactory<T2>(registrations[1]);
-                    Factory<T3> factory3 = GetFactory<T3>(registrations[2]);
-                    Factory<T4> factory4 = GetFactory<T4>(registrations[3]);
-
                     var factory = new ConstructorFactory<T, T1, T2, T3, T4>(constructor);
+                    return factory
+                        .ApplyPartial(registrations[3])
+                        .ApplyPartial(registrations[2])
+                        .ApplyPartial(registrations[1])
+                        .ApplyPartial(registrations[0]);
+                };
+        }
+    }
 
-                    var curryFactory4 = new CurryFactory<T, T1, T2, T3, T4>(factory, factory4);
-                    var curryFactory3 = new CurryFactory<T, T1, T2, T3>(curryFactory4, factory3);
-                    var curryFactory2 = new CurryFactory<T, T1, T2>(curryFactory3, factory2);
+    public class ConstructorRegistrationFactory<T, T1, T2, T3, T4, T5> :
+        ClosedTypeRegistrationFactory<T>
+    {
+        public ConstructorRegistrationFactory(ConstructorInfo constructor, Registration[] registrations)
+            : base(GetConstructorFactory(constructor, registrations))
+        {
+        }
 
-                    return new CurryFactory<T, T1>(curryFactory2, factory1);
+        static Func<Factory<T>> GetConstructorFactory(ConstructorInfo constructor, Registration[] registrations)
+        {
+            return () =>
+                {
+                    var factory = new ConstructorFactory<T, T1, T2, T3, T4, T5>(constructor);
+
+                    return factory.ApplyPartial(registrations[4])
+                        .ApplyPartial(registrations[3])
+                        .ApplyPartial(registrations[2])
+                        .ApplyPartial(registrations[1])
+                        .ApplyPartial(registrations[0]);
                 };
         }
     }

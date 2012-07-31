@@ -101,4 +101,20 @@
             return _get(arg1.Get(), arg2.Get(), arg3.Get(), arg4.Get());
         }
     }
+
+    public class ConstructorFactory<T, T1, T2, T3, T4, T5> :
+        Factory<T, T1, T2, T3, T4, T5>
+    {
+        readonly Func<T1, T2, T3, T4, T5, T> _get;
+
+        public ConstructorFactory(ConstructorInfo constructorInfo)
+        {
+            _get = this.GetFactoryMethod<Func<T1, T2, T3, T4, T5, T>>(constructorInfo);
+        }
+
+        T Factory<T, T1, T2, T3, T4, T5>.Get(Factory<T1> arg1, Factory<T2> arg2, Factory<T3> arg3, Factory<T4> arg4, Factory<T5> arg5)
+        {
+            return _get(arg1.Get(), arg2.Get(), arg3.Get(), arg4.Get(), arg5.Get());
+        }
+    }
 }

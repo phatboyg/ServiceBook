@@ -11,7 +11,7 @@
         {
             var factory = new ConstructorFactory<MyClass, MyDependency>(x => new MyClass(x));
             var dependencyFactory = new DefaultConstructorFactory<MyDependency>();
-            var curryFactory = new CurryFactory<MyClass, MyDependency>(factory, dependencyFactory);
+            var curryFactory = new PartialFactory<MyClass, MyDependency>(factory, dependencyFactory);
             MyClass subject = curryFactory.Get();
 
             Assert.IsNotNull(subject);

@@ -65,7 +65,7 @@
     <Compile Include="Conventions\ConstructorRegistrationFactory.cs" />
     <Compile Include="Conventions\FactoryImpl.cs" />
     <Compile Include="Conventions\MultipleRegistrationConvention.cs" />
-    <Compile Include="Factories\CurryFactory.cs" />
+    <Compile Include="Factories\PartialFactory.cs" />
     <Compile Include="Exceptions\ContainerConfigurationException.cs" />
     <Compile Include="Exceptions\ServiceBookException.cs" />
     <Compile Include="Factories\FactoryExtensions.cs" />

@@ -31,4 +31,10 @@
     {
         T Get(Factory<T1> arg1, Factory<T2> arg2, Factory<T3> arg3, Factory<T4> arg4);
     }
+
+    public interface Factory<out T, in T1, in T2, in T3, in T4, in T5> :
+        IFactory
+    {
+        T Get(Factory<T1> arg1, Factory<T2> arg2, Factory<T3> arg3, Factory<T4> arg4, Factory<T5> arg5);
+    }
 }

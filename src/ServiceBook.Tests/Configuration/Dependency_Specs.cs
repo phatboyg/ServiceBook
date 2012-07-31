@@ -56,6 +56,21 @@
         }
 
         [Test]
+        public void Should_get_5_dependencies()
+        {
+            Container container = ContainerFactory.New(x => { });
+
+            var subject = container.Get<H>();
+
+            Assert.IsNotNull(subject);
+            Assert.IsNotNull(subject.A);
+            Assert.IsNotNull(subject.B);
+            Assert.IsNotNull(subject.C);
+            Assert.IsNotNull(subject.D);
+            Assert.IsNotNull(subject.E);
+        }
+
+        [Test]
         public void Should_get_dependencies_of_dependencies()
         {
             Container container = ContainerFactory.New(x => { });
@@ -134,6 +149,24 @@
                 B = b;
                 C = c;
                 D = d;
+            }
+        }
+
+        class H
+        {
+            public A A { get; private set; }
+            public B B { get; private set; }
+            public C C { get; private set; }
+            public D D { get; private set; }
+            public E E { get; private set; }
+
+            public H(A a, B b, C c, D d, E e)
+            {
+                A = a;
+                B = b;
+                C = c;
+                D = d;
+                E = e;
             }
         }
     }

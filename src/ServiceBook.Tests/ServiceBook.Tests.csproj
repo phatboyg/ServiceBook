@@ -45,13 +45,22 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Benchmarks\ComponentFactory.cs" />
+    <Compile Include="Benchmarks\ComponentFactoryDependentObjectCreation.cs" />
     <Compile Include="Benchmarks\ComponentFactoryObjectCreation.cs" />
+    <Compile Include="Benchmarks\DependentObject.cs" />
+    <Compile Include="Benchmarks\DependentObjectCreation.cs" />
+    <Compile Include="Benchmarks\DependentObjectCreationBenchmark.cs" />
+    <Compile Include="Benchmarks\NewDependentObjectCreation.cs" />
+    <Compile Include="Benchmarks\ParentObject.cs" />
     <Compile Include="Benchmarks\ServiceBookContainerObjectCreation.cs" />
     <Compile Include="Benchmarks\Factory.cs" />
     <Compile Include="Benchmarks\NewObjectCreation.cs" />
     <Compile Include="Benchmarks\ObjectCreation.cs" />
     <Compile Include="Benchmarks\ObjectCreationBenchmark.cs" />
+    <Compile Include="Benchmarks\ServiceBookDependentObjectCreation.cs" />
+    <Compile Include="Benchmarks\ServiceBookFactoryDependentObjectCreation.cs" />
     <Compile Include="Benchmarks\ServiceBookFactoryObjectCreation.cs" />
+    <Compile Include="Benchmarks\StructureMapDependentObjectCreation.cs" />
     <Compile Include="Benchmarks\StructureMapObjectCreation.cs" />
     <Compile Include="Benchmarks\TypeExtensions.cs" />
     <Compile Include="Configuration\Dependency_Specs.cs" />

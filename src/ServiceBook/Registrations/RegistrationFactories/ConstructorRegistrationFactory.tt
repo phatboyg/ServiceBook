@@ -1,0 +1,69 @@
+﻿<#@ template debug="false" hostspecific="false" language="C#" #>
+<#@ output extension="cs" #>
+<#@ assembly  name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+namespace ServiceBook.Registrations.RegistrationFactories
+{
+    using System;
+    using System.Linq;
+    using System.Reflection;
+    using Factories;
+    using Internals.Caching;
+    using Registrations;
+
+    public static class ConstructorRegistrationFactory
+    {
+        static readonly Cache<int, Type> _factoryCache = new ConcurrentCache<int, Type>();
+
+        static ConstructorRegistrationFactory()
+        {
+<# for(int i=0; i<16; i++){ #>
+            _factoryCache.Add(<#=i#>, typeof(ConstructorRegistrationFactory<<#=new string(',', i)#>>));
+<#}#>
+        }
+
+        public static RegistrationFactory Create(Type type, ConstructorInfo constructorInfo, params Registration[] dependencies)
+        {
+            if (!_factoryCache.Has(dependencies.Length))
+                throw new ArgumentException(
+                    string.Format("Unable to create a factory for a constructor with {0} parameters",
+                        dependencies.Length), "dependencies");
+
+            Type factoryType = _factoryCache[dependencies.Length];
+
+            Type[] genericTypes = Enumerable.Repeat(type, 1).Concat(dependencies.Select(x => x.Type)).ToArray();
+
+            Type registrationType = factoryType.MakeGenericType(genericTypes);
+
+            var factory = (RegistrationFactory)Activator.CreateInstance(registrationType, constructorInfo, dependencies);
+
+            return factory;
+        }
+    }
+<# for(int i=0; i<16; i++){
+    var tInputArgs = String.Concat(Enumerable.Range(1,i).Select(it=>String.Format(",T{0}",it)));
+    var tPartials = String.Join(Environment.NewLine + "                                  ", Enumerable.Range(1,i).Reverse().Select(it=>String.Format(".ApplyPartial(registrations[{0}])",it-1)));
+#>
+    public class ConstructorRegistrationFactory<T<#=tInputArgs#>> :
+        ClosedTypeRegistrationFactory<T>
+    {
+        public ConstructorRegistrationFactory(ConstructorInfo constructor, Registration[] registrations)
+            : base(GetConstructorFactory(constructor, registrations))
+        {
+        }
+
+        static Func<Factory<T>> GetConstructorFactory(ConstructorInfo constructor, Registration[] registrations)
+        {
+            return () =>
+                {
+                    var factory = new ConstructorFactory<T<#=tInputArgs#>>(constructor);
+
+                    return factory<#=tPartials#>;
+                };
+        }
+    }
+    
+<# 
+    }
+#>
+}

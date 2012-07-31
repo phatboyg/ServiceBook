@@ -6,6 +6,7 @@ namespace ServiceBook.Registrations
     using Conventions;
     using Factories;
     using Internals.Extensions;
+    using RegistrationFactories;
 
 
     public class DefaultTypeRegistrationResolver

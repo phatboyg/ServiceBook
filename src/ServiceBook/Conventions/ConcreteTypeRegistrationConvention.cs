@@ -6,6 +6,7 @@ namespace ServiceBook.Conventions
     using System.Reflection;
     using Internals.Extensions;
     using Registrations;
+    using Registrations.RegistrationFactories;
 
     public class ConcreteTypeRegistrationConvention :
         RegistrationConvention
@@ -31,10 +32,7 @@ namespace ServiceBook.Conventions
             ConstructorInfo constructorInfo = type.GetConstructor(Type.EmptyTypes);
             if (constructorInfo != null)
             {
-                Type registrationType = typeof(ConstructorRegistrationFactory<>).MakeGenericType(type);
-
-                var factory = (RegistrationFactory)Activator.CreateInstance(registrationType, constructorInfo);
-
+                RegistrationFactory factory = ConstructorRegistrationFactory.Create(type, constructorInfo);
                 yield return factory.Get();
             }
         }
@@ -59,7 +57,7 @@ namespace ServiceBook.Conventions
         }
 
         IEnumerable<Registration> GetConstructorRegistrations(RegistrationCatalog catalog, Type type,
-            ConstructorInfo constructorInfo, Type[] dependencies)
+            ConstructorInfo constructorInfo, IEnumerable<Type> dependencies)
         {
             ParameterInfo[] parameters = constructorInfo.GetParameters();
 

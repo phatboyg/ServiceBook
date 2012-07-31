@@ -1,8 +1,6 @@
-namespace ServiceBook.Conventions
+namespace ServiceBook.Registrations.RegistrationFactories
 {
     using System;
-    using Factories;
-    using Registrations;
 
     /// <summary>
     /// Creates a registration for a closed type (no open generic arguments) using the 
@@ -41,16 +39,6 @@ namespace ServiceBook.Conventions
         public Registration Get()
         {
             return _registrationFactory();
-        }
-
-        protected static Factory<TFactory> GetFactory<TFactory>(Registration registration)
-        {
-            var factoryRegistration = registration as Registration<TFactory>;
-            if (factoryRegistration == null)
-                throw new ArgumentException(string.Format("The registration type was not valid: {0}",
-                    registration.Type));
-
-            return factoryRegistration.Factory;
         }
     }
 }

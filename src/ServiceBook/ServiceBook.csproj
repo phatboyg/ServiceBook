@@ -60,9 +60,7 @@
     <Compile Include="Configuration\ValidationResultExtensions.cs" />
     <Compile Include="Container.cs" />
     <Compile Include="ContainerScope.cs" />
-    <Compile Include="Conventions\ClosedTypeRegistrationFactory.cs" />
     <Compile Include="Conventions\ConcreteTypeRegistrationConvention.cs" />
-    <Compile Include="Conventions\ConstructorRegistrationFactory.cs" />
     <Compile Include="Conventions\MultipleRegistrationConvention.cs" />
     <Compile Include="Factories\ConstructorFactory.cs">
       <AutoGen>True</AutoGen>
@@ -93,6 +91,12 @@
     <Compile Include="Registrations\Registration.cs" />
     <Compile Include="Registrations\ClosedTypeRegistration.cs" />
     <Compile Include="Registrations\RegistrationCatalog.cs" />
+    <Compile Include="Registrations\RegistrationFactories\ClosedTypeRegistrationFactory.cs" />
+    <Compile Include="Registrations\RegistrationFactories\ConstructorRegistrationFactory.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ConstructorRegistrationFactory.tt</DependentUpon>
+    </Compile>
     <Compile Include="Registrations\RegistrationFactory.cs" />
     <Compile Include="ReleaseHandler.cs" />
     <Compile Include="ReleaseHandlers\DisposeReleaseHandler.cs" />
@@ -118,6 +122,10 @@
     <None Include="Factory.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>Factory.cs</LastGenOutput>
+    </None>
+    <None Include="Registrations\RegistrationFactories\ConstructorRegistrationFactory.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>ConstructorRegistrationFactory.cs</LastGenOutput>
     </None>
   </ItemGroup>
   <ItemGroup>

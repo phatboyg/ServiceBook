@@ -62,9 +62,7 @@
     <Compile Include="ContainerScope.cs" />
     <Compile Include="Conventions\ClosedTypeRegistrationFactory.cs" />
     <Compile Include="Conventions\ConcreteTypeRegistrationConvention.cs" />
-    <Compile Include="Conventions\ConstructorFactory.cs" />
     <Compile Include="Conventions\ConstructorRegistrationFactory.cs" />
-    <Compile Include="Conventions\DefaultConstructorRegistrationFactory.cs" />
     <Compile Include="Conventions\FactoryImpl.cs" />
     <Compile Include="Conventions\MultipleRegistrationConvention.cs" />
     <Compile Include="Factories\CurryFactory.cs" />
@@ -73,7 +71,7 @@
     <Compile Include="Factories\FactoryExtensions.cs" />
     <Compile Include="Factories\IFactory.cs" />
     <Compile Include="Factory.cs" />
-    <Compile Include="Factories\FactoryImpl.cs" />
+    <Compile Include="Factories\ConstructorFactory.cs" />
     <Compile Include="Internals\**\*.cs" />
     <Compile Include="Registrations\DefaultTypeRegistrationResolver.cs" />
     <Compile Include="Registrations\Registration.cs" />

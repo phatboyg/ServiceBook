@@ -31,7 +31,7 @@ namespace ServiceBook.Conventions
             ConstructorInfo constructorInfo = type.GetConstructor(Type.EmptyTypes);
             if (constructorInfo != null)
             {
-                Type registrationType = typeof(DefaultConstructorRegistrationFactory<>).MakeGenericType(type);
+                Type registrationType = typeof(ConstructorRegistrationFactory<>).MakeGenericType(type);
 
                 var factory = (RegistrationFactory)Activator.CreateInstance(registrationType, constructorInfo);
 

@@ -24,7 +24,7 @@ namespace ServiceBook.Registrations
 
             if (constructorInfo != null)
             {
-                var registrationType = typeof(DefaultConstructorRegistrationFactory<>).MakeGenericType(type);
+                var registrationType = typeof(ConstructorRegistrationFactory<>).MakeGenericType(type);
 
                 var registrationFactory = (RegistrationFactory)Activator.CreateInstance(registrationType, constructorInfo);
 

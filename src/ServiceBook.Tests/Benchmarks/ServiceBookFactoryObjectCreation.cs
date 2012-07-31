@@ -11,7 +11,7 @@ namespace ServiceBook.Tests.Benchmarks
             where T : new()
         {
             if (_factory == null)
-                _factory = new FactoryImpl<T>(() => new T());
+                _factory = new ConstructorFactory<T>(() => new T());
 
             var factory = (ServiceBook.Factory<T>)_factory;
 

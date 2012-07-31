@@ -1,0 +1,21 @@
+﻿<#@ template debug="false" hostspecific="false" language="C#" #>
+<#@ output extension="cs" #>
+<#@ assembly  name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+namespace ServiceBook
+{
+    using Factories;
+
+<# for(int i=0; i<16; i++){
+    var tArgs = String.Concat(Enumerable.Range(1,i).Select(it=>String.Format(",in T{0}",it)));
+    var tParms = String.Join(", ", Enumerable.Range(2,i).Select(it=>String.Format("Factory<T{0}> arg{0}",it-1)));
+#>
+    public interface Factory<out T<#=tArgs#>> :
+        IFactory
+    {
+        T Get(<#=tParms#>);
+    }
+<# 
+}
+#>
+}

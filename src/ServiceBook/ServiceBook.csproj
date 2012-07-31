@@ -65,12 +65,16 @@
     <Compile Include="Conventions\ConstructorRegistrationFactory.cs" />
     <Compile Include="Conventions\FactoryImpl.cs" />
     <Compile Include="Conventions\MultipleRegistrationConvention.cs" />
+    <Compile Include="Factory.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Factory.tt</DependentUpon>
+    </Compile>
     <Compile Include="Factories\PartialFactory.cs" />
     <Compile Include="Exceptions\ContainerConfigurationException.cs" />
     <Compile Include="Exceptions\ServiceBookException.cs" />
     <Compile Include="Factories\FactoryExtensions.cs" />
     <Compile Include="Factories\IFactory.cs" />
-    <Compile Include="Factory.cs" />
     <Compile Include="Factories\ConstructorFactory.cs" />
     <Compile Include="Internals\**\*.cs" />
     <Compile Include="Registrations\DefaultTypeRegistrationResolver.cs" />
@@ -87,7 +91,15 @@
     <Compile Include="Factories\DefaultConstructorFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="Factory.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Factory.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

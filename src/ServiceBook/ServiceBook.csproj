@@ -35,7 +35,10 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Configuration\BuilderConfigurators\CatalogBuilderConfigurator.cs" />
     <Compile Include="Configuration\BuilderConfigurators\ContainerBuilderConfigurator.cs" />
+    <Compile Include="Configuration\Builders\CatalogBuilder.cs" />
+    <Compile Include="Configuration\Builders\CatalogBuilderImpl.cs" />
     <Compile Include="Configuration\Builders\ContainerBuilder.cs" />
     <Compile Include="Configuration\Builders\ContainerBuilderImpl.cs" />
     <Compile Include="Configuration\ConfiguratorExtensions.cs" />
@@ -60,6 +63,7 @@
     <Compile Include="Configuration\UniqueFactoryConfigurator.cs" />
     <Compile Include="Configuration\ValidationResultExtensions.cs" />
     <Compile Include="Container.cs" />
+    <Compile Include="ContainerRegistrationCatalog.cs" />
     <Compile Include="ContainerScope.cs" />
     <Compile Include="Conventions\ConcreteTypeRegistrationConvention.cs" />
     <Compile Include="Conventions\MultipleRegistrationConvention.cs" />
@@ -99,6 +103,11 @@
     <Compile Include="Registrations\Algorithms\Implementations\TarjanNodeProperties.cs" />
     <Compile Include="Registrations\Algorithms\Implementations\TopologicalSort.cs" />
     <Compile Include="Registrations\Algorithms\Implementations\TopologicalSortNodeProperties.cs" />
+    <Compile Include="Registrations\ClosedGenericRegistration.cs" />
+    <Compile Include="Registrations\ExistingRegistrationFactory.cs" />
+    <Compile Include="Registrations\FactoryCandidate.cs" />
+    <Compile Include="Registrations\GenericTypeExtensions.cs" />
+    <Compile Include="Registrations\OpenGenericRegistration.cs" />
     <Compile Include="Registrations\Registration.cs" />
     <Compile Include="Registrations\ClosedTypeRegistration.cs" />
     <Compile Include="Registrations\RegistrationCatalog.cs" />
@@ -109,6 +118,7 @@
       <DependentUpon>ConstructorRegistrationFactory.tt</DependentUpon>
     </Compile>
     <Compile Include="Registrations\RegistrationFactory.cs" />
+    <Compile Include="Registrations\RegistrationFactoryCandidate.cs" />
     <Compile Include="ReleaseHandler.cs" />
     <Compile Include="ReleaseHandlers\DisposeReleaseHandler.cs" />
     <Compile Include="ServiceBookContainer.cs" />

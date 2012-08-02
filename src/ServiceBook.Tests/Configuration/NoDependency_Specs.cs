@@ -10,7 +10,7 @@
         {
             Container container = ContainerFactory.New(x =>
                 {
-                   // x.Unique<MyClass>();
+                   x.Unique<MyClass>();
                 });
 
             Assert.IsNotNull(container);

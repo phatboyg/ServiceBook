@@ -6,6 +6,6 @@ namespace ServiceBook
 
     public interface RegistrationConvention
     {
-        IEnumerable<Registration> GetTypeRegistrations(RegistrationCatalog catalog, Type type);
+        IEnumerable<RegistrationFactory> GetTypeRegistrations(RegistrationCatalog catalog, Type type);
     }
 }

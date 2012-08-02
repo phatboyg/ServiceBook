@@ -5,8 +5,8 @@
     using System.Linq;
     using NUnit.Framework;
     using Registrations;
-    using Registrations.Algorithms;
     using ServiceBook.Conventions;
+    using StructureMap.Util;
 
     [TestFixture]
     public class When_determining_the_dependency_order_by_convention
@@ -16,15 +16,35 @@
         {
             var convention = new ConcreteTypeRegistrationConvention();
 
-            var catalog = new MyCatalog(convention);
+            var emptyContainer = new TestContainer();
 
-            Registration registration = catalog.GetRegistration(typeof(Parent));
+            RegistrationCatalog catalog = new ContainerRegistrationCatalog(convention, emptyContainer);
 
-            Type[] dependencies = catalog.Dependencies(typeof(Parent)).ToArray();
+            catalog.GetRegistration(typeof(Parent));
+
+            RegistrationFactory[] dependencies = catalog.Registrations.ToArray();
 
             Assert.AreEqual(
                 new[] {typeof(Sibling), typeof(GrandChild), typeof(Child), typeof(GrandParent), typeof(Parent)},
-                dependencies);
+                dependencies.Select(x => x.RegistrationType));
+        }
+
+        [Test]
+        public void Should_properly_order_dependencies_not_including_existing_ones()
+        {
+            var convention = new ConcreteTypeRegistrationConvention();
+
+            var testContainer = new TestContainer(typeof(Sibling));
+
+            RegistrationCatalog catalog = new ContainerRegistrationCatalog(convention, testContainer);
+
+            catalog.GetRegistration(typeof(Parent));
+
+            RegistrationFactory[] dependencies = catalog.Registrations.ToArray();
+
+            Assert.AreEqual(
+                new[] {typeof(GrandChild), typeof(Child), typeof(GrandParent), typeof(Parent)},
+                dependencies.Select(x => x.RegistrationType));
         }
 
         class Parent
@@ -56,38 +76,50 @@
             }
         }
 
-        class MyCatalog :
-            RegistrationCatalog
+        class TestContainer :
+            ConfigureContainer
         {
-            readonly RegistrationConvention _convention;
-            readonly DependencyGraph<Type> _graph;
-            readonly IDictionary<Type, Registration> _types;
+            readonly IDictionary<Type, Registration> _existing;
 
-            public MyCatalog(RegistrationConvention convention)
+            public TestContainer(params Type[] existingTypes)
             {
-                _types = new Dictionary<Type, Registration>();
-                _graph = new DependencyGraph<Type>();
+                _existing = new Dictionary<Type, Registration>();
 
-                _convention = convention;
+                foreach (var existingType in existingTypes)
+                {
+                    _existing.Add(existingType, new BogusRegistration(existingType));
+                }
             }
 
-            public Registration GetRegistration(Type type)
+            public bool TryGetRegistration(Type type, out Registration registration)
             {
-                IEnumerable<Registration> typeRegistrations = _convention.GetTypeRegistrations(this, type);
-                foreach (Registration registration in typeRegistrations)
-                {
-                    _types[registration.Type] = registration;
+                return _existing.TryGetValue(type, out registration);
+            }
 
-                    if (type != registration.Type)
-                        _graph.Add(type, registration.Type);
+            public void AddRegistration(Registration registration)
+            {
+                throw new InvalidOperationException("Should not be adding anything!!!!");
+            }
+
+            class BogusRegistration :
+                Registration
+            {
+                Type _type;
+
+                public BogusRegistration(Type type)
+                {
+                    _type = type;
                 }
 
-                return _types[type];
-            }
+                public Type Type
+                {
+                    get { return _type; }
+                }
 
-            public IEnumerable<Type> Dependencies(Type type)
-            {
-                return _graph.GetItemsInDependencyOrder(type);
+                public IEnumerable<Registration> Dependencies
+                {
+                    get { yield break; }
+                }
             }
         }
     }

@@ -2,6 +2,7 @@ namespace ServiceBook.Registrations.RegistrationFactories
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
 
     /// <summary>
     /// Creates a registration for a closed type (no open generic arguments) using the 
@@ -9,9 +10,10 @@ namespace ServiceBook.Registrations.RegistrationFactories
     /// </summary>
     /// <typeparam name="T"></typeparam>
     public class ClosedTypeRegistrationFactory<T> :
-        RegistrationFactory
+        RegistrationFactory,
+        RegistrationFactoryCandidate
     {
-        readonly IEnumerable<Type> _dependencyTypes;
+        readonly IEnumerable<RegistrationFactory> _dependencies;
         readonly Func<Registration> _registrationFactory;
 
         /// <summary>
@@ -19,10 +21,11 @@ namespace ServiceBook.Registrations.RegistrationFactories
         /// registration is resolved.
         /// </summary>
         /// <param name="factoryFactory"></param>
-        /// <param name="dependencyTypes"> </param>
-        public ClosedTypeRegistrationFactory(Func<Factory<T>> factoryFactory, IEnumerable<Type> dependencyTypes)
+        /// <param name="dependencies"> </param>
+        public ClosedTypeRegistrationFactory(Func<Factory<T>> factoryFactory,
+            IEnumerable<RegistrationFactory> dependencies)
         {
-            _dependencyTypes = dependencyTypes;
+            _dependencies = dependencies;
             Registration registration = null;
             bool created = false;
 
@@ -33,7 +36,7 @@ namespace ServiceBook.Registrations.RegistrationFactories
 
                     Factory<T> factory = factoryFactory();
 
-                    registration = new ClosedTypeRegistration<T>(factory);
+                    registration = new ClosedTypeRegistration<T>(factory, _dependencies.Select(x => x.Get()).ToArray());
                     created = true;
 
                     return registration;
@@ -45,14 +48,19 @@ namespace ServiceBook.Registrations.RegistrationFactories
             get { return typeof(T); }
         }
 
-        public IEnumerable<Type> DependencyTypes
+        public IEnumerable<RegistrationFactoryCandidate> Candidates
         {
-            get { return _dependencyTypes; }
+            get { yield return this; }
         }
 
         public Registration Get()
         {
             return _registrationFactory();
+        }
+
+        public IEnumerable<RegistrationFactory> Dependencies
+        {
+            get { return _dependencies; }
         }
     }
 }

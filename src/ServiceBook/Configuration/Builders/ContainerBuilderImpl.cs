@@ -2,6 +2,7 @@ namespace ServiceBook.Builders
 {
     using System.Collections.Generic;
     using Conventions;
+    using Registrations;
 
     public class ContainerBuilderImpl :
         ContainerBuilder
@@ -23,7 +24,13 @@ namespace ServiceBook.Builders
             else
                 convention = new MultipleRegistrationConvention(_registrationConventions);
 
-            return new ServiceBookContainer(convention);
+            var serviceBookContainer = new ServiceBookContainer(convention);
+
+            RegistrationCatalog catalog = new ContainerRegistrationCatalog(convention, serviceBookContainer);
+
+
+
+            return serviceBookContainer;
         }
 
         public void AddRegistrationConvention(RegistrationConvention convention)

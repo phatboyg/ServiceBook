@@ -11,33 +11,33 @@ namespace ServiceBook.Conventions
     public class ConcreteTypeRegistrationConvention :
         RegistrationConvention
     {
-        public IEnumerable<Registration> GetTypeRegistrations(RegistrationCatalog catalog, Type type)
+        public IEnumerable<RegistrationFactory> GetTypeRegistrations(RegistrationCatalog catalog, Type type)
         {
             if (type.IsConcreteType())
             {
-                Registration[] defaultConstructor = GetDefaultConstructor(type).ToArray();
+                RegistrationFactory[] defaultConstructor = GetDefaultConstructor(type).ToArray();
                 if (defaultConstructor.Any())
                     return defaultConstructor;
 
-                Registration[] greediestConstructor = GetGreediestConstructor(catalog, type).ToArray();
+                RegistrationFactory[] greediestConstructor = GetGreediestConstructor(catalog, type).ToArray();
                 if (greediestConstructor.Any())
                     return greediestConstructor;
             }
 
-            return Enumerable.Empty<Registration>();
+            return Enumerable.Empty<RegistrationFactory>();
         }
 
-        IEnumerable<Registration> GetDefaultConstructor(Type type)
+        IEnumerable<RegistrationFactory> GetDefaultConstructor(Type type)
         {
             ConstructorInfo constructorInfo = type.GetConstructor(Type.EmptyTypes);
             if (constructorInfo != null)
             {
                 RegistrationFactory factory = ConstructorRegistrationFactory.Create(type, constructorInfo);
-                yield return factory.Get();
+                yield return factory;
             }
         }
 
-        IEnumerable<Registration> GetGreediestConstructor(RegistrationCatalog catalog, Type type)
+        IEnumerable<RegistrationFactory> GetGreediestConstructor(RegistrationCatalog catalog, Type type)
         {
             IOrderedEnumerable<ConstructorInfo> candidates = type.GetConstructors()
                 .OrderByDescending(x => x.GetParameters().Length);
@@ -46,32 +46,32 @@ namespace ServiceBook.Conventions
             {
                 Type[] dependencies = candidate.GetParameters().Select(x => x.ParameterType).ToArray();
 
-                Registration[] registrations =
+                RegistrationFactory[] registrations =
                     GetConstructorRegistrations(catalog, type, candidate, dependencies).ToArray();
 
                 if (registrations.Any())
                     return registrations;
             }
 
-            return Enumerable.Empty<Registration>();
+            return Enumerable.Empty<RegistrationFactory>();
         }
 
-        IEnumerable<Registration> GetConstructorRegistrations(RegistrationCatalog catalog, Type type,
+        IEnumerable<RegistrationFactory> GetConstructorRegistrations(RegistrationCatalog catalog, Type type,
             ConstructorInfo constructorInfo, IEnumerable<Type> dependencies)
         {
             ParameterInfo[] parameters = constructorInfo.GetParameters();
 
-            Registration[] arguments = dependencies
+            RegistrationFactory[] arguments = dependencies
                 .Select((x, index) => catalog.GetRegistration(parameters[index].ParameterType)).ToArray();
 
             if (parameters.Length == arguments.Length)
             {
                 RegistrationFactory factory = ConstructorRegistrationFactory.Create(type, constructorInfo, arguments);
 
-                return arguments.Concat(Enumerable.Repeat(factory.Get(), 1));
+                return arguments.Concat(Enumerable.Repeat(factory, 1));
             }
 
-            return Enumerable.Empty<Registration>();
+            return Enumerable.Empty<RegistrationFactory>();
         }
     }
 }

@@ -69,7 +69,11 @@
     <Compile Include="Configuration\Singleton_Specs.cs" />
     <Compile Include="Conventions\Catalog_Specs.cs" />
     <Compile Include="Conventions\DependencyOrder_Specs.cs" />
+    <Compile Include="Conventions\FactoryCandidate_Specs.cs" />
+    <Compile Include="Conventions\InterfaceRegistration_Specs.cs" />
+    <Compile Include="Conventions\TestContainer.cs" />
     <Compile Include="Curry_Specs.cs" />
+    <Compile Include="Dependency_Specs.cs" />
     <Compile Include="Factory_Specs.cs" />
     <Compile Include="ImplementationFactory_Specs.cs" />
     <Compile Include="Performance\Performance_Specs.cs" />

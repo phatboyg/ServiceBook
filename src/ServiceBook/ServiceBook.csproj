@@ -55,10 +55,13 @@
     <Compile Include="Configuration\FactoryConfigurator.cs" />
     <Compile Include="Configuration\FactoryConfigurators\FactoryConfiguratorImpl.cs" />
     <Compile Include="Configuration\FactoryConfigurators\SingletonFactoryConfiguratorImpl.cs" />
+    <Compile Include="Configuration\FactoryConfigurators\TransientFactoryConfiguratorImpl.cs" />
     <Compile Include="Configuration\FactoryConfigurators\UniqueFactoryConfiguratorImpl.cs" />
     <Compile Include="Configuration\SingletonConfiguratorExtensions.cs" />
     <Compile Include="Configuration\SingletonFactoryConfigurator.cs" />
     <Compile Include="Configuration\RegistrationConvention.cs" />
+    <Compile Include="Configuration\TransientConfiguratorExtensions.cs" />
+    <Compile Include="Configuration\TransientFactoryConfigurator.cs" />
     <Compile Include="Configuration\UniqueConfiguratorExtensions.cs" />
     <Compile Include="Configuration\UniqueFactoryConfigurator.cs" />
     <Compile Include="Configuration\ValidationResultExtensions.cs" />
@@ -103,10 +106,23 @@
     <Compile Include="Registrations\Algorithms\Implementations\TarjanNodeProperties.cs" />
     <Compile Include="Registrations\Algorithms\Implementations\TopologicalSort.cs" />
     <Compile Include="Registrations\Algorithms\Implementations\TopologicalSortNodeProperties.cs" />
+    <Compile Include="Registrations\ClosedGenericDependency.cs" />
     <Compile Include="Registrations\ClosedGenericRegistration.cs" />
+    <Compile Include="Registrations\ConstructorFactoryCandidate.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ConstructorFactoryCandidate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Registrations\DependencyExtensions.cs" />
+    <Compile Include="Registrations\DependencyReference.cs" />
     <Compile Include="Registrations\ExistingRegistrationFactory.cs" />
-    <Compile Include="Registrations\FactoryCandidate.cs" />
+    <Compile Include="Registrations\FactoryCandidate1.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>FactoryCandidate.tt</DependentUpon>
+    </Compile>
     <Compile Include="Registrations\GenericTypeExtensions.cs" />
+    <Compile Include="Registrations\OpenGenericDependency.cs" />
     <Compile Include="Registrations\OpenGenericRegistration.cs" />
     <Compile Include="Registrations\Registration.cs" />
     <Compile Include="Registrations\ClosedTypeRegistration.cs" />
@@ -119,6 +135,8 @@
     </Compile>
     <Compile Include="Registrations\RegistrationFactory.cs" />
     <Compile Include="Registrations\RegistrationFactoryCandidate.cs" />
+    <Compile Include="Registrations\Dependency.cs" />
+    <Compile Include="Registrations\TypeDependency.cs" />
     <Compile Include="ReleaseHandler.cs" />
     <Compile Include="ReleaseHandlers\DisposeReleaseHandler.cs" />
     <Compile Include="ServiceBookContainer.cs" />
@@ -143,6 +161,14 @@
     <None Include="Factory.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>Factory.cs</LastGenOutput>
+    </None>
+    <None Include="Registrations\ConstructorFactoryCandidate.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>ConstructorFactoryCandidate.cs</LastGenOutput>
+    </None>
+    <None Include="Registrations\FactoryCandidate.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>FactoryCandidate1.cs</LastGenOutput>
     </None>
     <None Include="Registrations\RegistrationFactories\ConstructorRegistrationFactory.tt">
       <Generator>TextTemplatingFileGenerator</Generator>

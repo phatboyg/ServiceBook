@@ -1,0 +1,95 @@
+﻿<#@ template debug="false" hostspecific="false" language="C#" #>
+<#@ output extension="cs" #>
+<#@ assembly  name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+namespace ServiceBook.Registrations
+{
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Reflection;
+    using Factories;
+    using Internals.Caching;
+    using Registrations;
+
+    public static class FactoryCandidateExtensions
+    {
+        static readonly Cache<int, Type> _factoryCache = new DictionaryCache<int, Type>();
+
+        static FactoryCandidateExtensions()
+        {
+<# for(int i=0; i<16; i++){ #>
+            _factoryCache.Add(<#=i#>, typeof(ConstructorFactoryCandidate<<#=new string(',', i)#>>));
+<#}#>
+        }
+
+        public static RegistrationFactory Create(Type type, ConstructorInfo constructorInfo)
+        {
+            var parameters = constructorInfo.GetParameters();
+
+            if (!_factoryCache.Has(parameters.Length))
+                throw new ArgumentException(
+                    string.Format("Unable to create a factory for a constructor with {0} parameters",
+                        parameters.Length), "constructorInfo");
+
+            Type factoryType = _factoryCache[parameters.Length];
+
+            Type[] genericTypes = Enumerable.Repeat(type, 1).Concat(dependencies.Select(x => x.RegistrationType)).ToArray();
+
+            Type registrationType = factoryType.MakeGenericType(genericTypes);
+
+            var factory = (RegistrationFactory)Activator.CreateInstance(registrationType, constructorInfo, dependencies);
+
+            return factory;
+        }
+    }
+
+    public abstract class ConstructorFactoryCandidate
+    {
+        readonly ConstructorInfo _constructorInfo;
+
+        protected ConstructorFactoryCandidate(ConstructorInfo constructorInfo)
+        {
+            _constructorInfo = constructorInfo;
+        }
+
+        public IEnumerable<Dependency> Dependencies
+        {
+            get { return _constructorInfo.GetParameters().Select(x => x.ParameterType.GetDependency()); }
+        }
+    }
+
+
+<# for(int i=0; i<16; i++){
+    var tInputArgs = String.Concat(Enumerable.Range(1,i).Select(it=>String.Format(",T{0}",it)));
+    var tPartials = String.Join(Environment.NewLine + "                                  ", Enumerable.Range(1,i).Reverse().Select(it=>String.Format(".ApplyPartial(registrations[{0}].Get())",it-1)));
+#>
+    public class ConstructorFactoryCandidate<T<#=tInputArgs#>> :
+        ConstructorFactoryCandidate,
+        FactoryCandidate<T<#=tInputArgs#>>
+    {
+        public ConstructorFactoryCandidate(ConstructorInfo constructor)
+            : base(constructor)
+        {
+        }
+
+        Type FactoryCandidate.FactoryType 
+        {
+            get { return typeof(T); }
+        }
+
+        static Func<Factory<T>> GetConstructorFactory(ConstructorInfo constructor, RegistrationFactory[] registrations)
+        {
+            return () =>
+                {
+                    var factory = new ConstructorFactory<T<#=tInputArgs#>>(constructor);
+
+                    return factory<#=tPartials#>;
+                };
+        }
+    }
+    
+<# 
+    }
+#>
+}

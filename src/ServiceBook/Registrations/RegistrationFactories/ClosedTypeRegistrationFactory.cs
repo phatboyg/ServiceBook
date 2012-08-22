@@ -13,7 +13,7 @@ namespace ServiceBook.Registrations.RegistrationFactories
         RegistrationFactory,
         RegistrationFactoryCandidate
     {
-        readonly IEnumerable<RegistrationFactory> _dependencies;
+        readonly RegistrationFactory[] _dependencies;
         readonly Func<Registration> _registrationFactory;
 
         /// <summary>
@@ -22,8 +22,7 @@ namespace ServiceBook.Registrations.RegistrationFactories
         /// </summary>
         /// <param name="factoryFactory"></param>
         /// <param name="dependencies"> </param>
-        public ClosedTypeRegistrationFactory(Func<Factory<T>> factoryFactory,
-            IEnumerable<RegistrationFactory> dependencies)
+        public ClosedTypeRegistrationFactory(Func<Factory<T>> factoryFactory, params RegistrationFactory[] dependencies)
         {
             _dependencies = dependencies;
             Registration registration = null;

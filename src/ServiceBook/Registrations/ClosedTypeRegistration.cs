@@ -9,7 +9,7 @@ namespace ServiceBook.Registrations
         readonly Registration[] _dependencies;
         readonly Factory<T> _factory;
 
-        public ClosedTypeRegistration(Factory<T> factory, Registration[] dependencies)
+        public ClosedTypeRegistration(Factory<T> factory, params Registration[] dependencies)
         {
             _factory = factory;
             _dependencies = dependencies;

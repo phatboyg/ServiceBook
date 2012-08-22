@@ -28,18 +28,18 @@ namespace ServiceBook
 
         public void AddRegistration(RegistrationFactory registration)
         {
-            if (_types.Has(registration.RegistrationType))
+            CatalogRegistration current;
+            if(_types.TryGetValue(registration.RegistrationType, out current))
             {
-                CatalogRegistration catalogRegistration = _types[registration.RegistrationType];
-                if (catalogRegistration.IsExisting)
+                if (current.IsExisting)
                     throw new ServiceBookException("An existing registration already exists for "
                                                    + registration.RegistrationType.GetTypeName());
 
-                if (catalogRegistration.IsExplicit)
+                if (current.IsExplicit)
                     throw new ServiceBookException("An explicit registration already exists for "
                                                    + registration.RegistrationType.GetTypeName());
 
-                catalogRegistration.Registration = registration;
+                current.Registration = registration;
                 return;
             }
 
@@ -48,8 +48,9 @@ namespace ServiceBook
 
         public RegistrationFactory GetRegistration(Type type)
         {
-            if(_types.Has(type))
-                return _types[type].Registration;
+            CatalogRegistration current;
+            if (_types.TryGetValue(type, out current))
+                return current.Registration;
 
             Registration existingRegistration;
             if (_configureContainer.TryGetRegistration(type, out existingRegistration))
